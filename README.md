@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Esta web app esta hecha para llevar el control de tu informe de servicio mensual, puedes anclarla como una app en tu pantalla inicial
 
 ## Getting Started
 

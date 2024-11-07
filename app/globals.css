@@ -2,20 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
+    --primary: 217 39% 47%;
+    --secondary: 0 0% 16%;
+    --success: 217 39% 47%;
+    --warning: 17 82% 66%;
+    --error: 0 92% 26%;
+    --muted: 0 0% 0%;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 100%;
+    --primary: 217 39% 47%;
+    --secondary: 0 0% 16%;
+    --success: 217 39% 47%;
+    --warning: 17 82% 66%;
+    --error: 0 92% 26%;
+    --muted: 0 0% 100%;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+h1 {
+  @apply text-6xl tracking-tighter leading-none
+}
+
+input {
+  @apply h-9 px-2 focus:outline-offset-1 focus:outline-primary bg-secondary/10 dark:bg-secondary/30 text-foreground placeholder:text-muted
+}
+
+button {
+  @apply h-9 px-3 tracking-tight transition-colors
+}
+
+.primary-button {
+  @apply bg-primary text-white hover:bg-primary/80 font-medium
+}
+
+.secondary-button {
+  @apply border border-muted text-foreground hover:bg-secondary/10 hover:border-foreground/50
+}
+
+.destructive-button {
+  @apply bg-error/10 text-error border border-error
+}
+
+.button-primary-link {
+  @apply h-9 px-3 tracking-tight transition-colors bg-primary hover:bg-primary/80 font-medium flex items-center text-center justify-center text-white
+}
+
+.button-secondary-link {
+  @apply h-9 px-3 tracking-tight transition-colors border border-muted hover:bg-secondary/30 text-foreground font-medium flex items-center text-center justify-center
+}
+
+.link-secondary-dark {
+  @apply h-9 border border-white/30 text-white/70 hover:bg-white/5 hover:text-white transition-colors px-3 flex items-center justify-center
+}
+
+.dark-image {
+  @apply hidden dark:block
+}
+
+label {
+  @apply tracking-tight
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
