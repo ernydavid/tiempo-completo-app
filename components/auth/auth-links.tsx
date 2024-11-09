@@ -1,8 +1,8 @@
 import { ExtendedUser } from '@/next-auth'
 import { User2 } from 'lucide-react'
-import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SignOutButton } from './signout-button'
 
 const routes = [
   {
@@ -67,14 +67,7 @@ export function AuthLinks ({ user }: Props) {
         </div>
       </div>
 
-      <button
-        className='secondary-button'
-        onClick={async () => {
-          await signOut()
-        }}
-      >
-        Cerrar Sesión
-      </button>
+      <SignOutButton />
     </div>
   )
 }

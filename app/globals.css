@@ -30,6 +30,10 @@ h1 {
   @apply text-6xl tracking-tighter leading-none
 }
 
+h3 {
+  @apply text-3xl tracking-tighter leading-none
+}
+
 input {
   @apply h-9 px-2 focus:outline-offset-1 focus:outline-primary bg-secondary/10 dark:bg-secondary/30 text-foreground placeholder:text-muted
 }

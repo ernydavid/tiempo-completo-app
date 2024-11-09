@@ -1,6 +1,6 @@
 'use server'
 
-import { signIn } from '@/auth'
+import { signIn, signOut } from '@/auth'
 import { db } from '@/db'
 import { accounts, users } from '@/db/schema/users'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
@@ -151,4 +151,8 @@ export async function login (prevState: ActionState, formData: FormData) {
       }
 
   await signIn(provider as OAuthProviderType, authOptions)
+}
+
+export async function logout () {
+  await signOut({ redirectTo: '/auth/login' })
 }

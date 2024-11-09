@@ -52,15 +52,26 @@ export function Navbar ({ userPromise }: Props) {
             <span className='w-full h-full pointer-events-none flex flex-col items-center justify-center text-inherit before:content-[""] before:block group-hover:opacity-80 before:h-px before:w-7 before:bg-white before:rounded-full before:-translate-y-1 group-data-[open="true"]:before:translate-y-px group-data-[open="true"]:before:rotate-45 before:transition-transform before:duration-150 after:content-[""] after:block after:h-px  after:w-7 after:bg-white after:rounded-full after:translate-y-1 group-data-[open="true"]:after:translate-y-0 group-data-[open="true"]:after:-rotate-45 after:transition-transform after:duration-150' />
           </button>
           <div className='hidden md:flex items-center gap-3'>
-            {publicRoutes.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className={item.id === 1 ? 'link-secondary-dark' : 'button-primary-link'}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {session
+              ? (
+                <Link
+                  className='button-primary-link'
+                  href='/dashboard'
+                >
+                  Dashboard
+                </Link>
+                )
+              : (
+                  publicRoutes.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className={item.id === 1 ? 'link-secondary-dark' : 'button-primary-link'}
+                    >
+                      {item.label}
+                    </Link>
+                  ))
+                )}
           </div>
         </nav>
         {notCompleteUser && (
