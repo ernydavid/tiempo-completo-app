@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'Una App creada para los Testigos de Jehová.'
 }
 
-export default async function RootLayout ({
+export default function RootLayout ({
   children
 }: Readonly<{
   children: React.ReactNode;

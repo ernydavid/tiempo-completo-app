@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export default async function Home () {
   const session = await auth()
+
   return (
     <div className='w-full flex flex-col gap-6 md:text-center'>
       <HeroSection />
