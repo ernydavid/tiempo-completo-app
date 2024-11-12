@@ -7,6 +7,7 @@ import { Session } from 'next-auth'
 import { AuthLinks } from '../auth/auth-links'
 import { PublicLinks } from '../auth/public-links'
 import { AlertCircle } from 'lucide-react'
+import { SignOutButton } from '../auth/signout-button'
 
 interface Props {
   userPromise: Promise<Session | null>
@@ -54,12 +55,15 @@ export function Navbar ({ userPromise }: Props) {
           <div className='hidden md:flex items-center gap-3'>
             {session
               ? (
-                <Link
-                  className='button-primary-link'
-                  href='/dashboard'
-                >
-                  Dashboard
-                </Link>
+                <>
+                  <Link
+                    className='button-primary-link'
+                    href='/dashboard'
+                  >
+                    Dashboard
+                  </Link>
+                  <SignOutButton />
+                </>
                 )
               : (
                   publicRoutes.map((item) => (
