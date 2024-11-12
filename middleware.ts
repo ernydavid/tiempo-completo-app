@@ -1,8 +1,8 @@
 import { authRoutes, DEFAULT_LOGIN_REDIRECT, protectedRoutePrefix } from '@/routes'
-import { auth } from '@/auth'
+import { auth as middleware } from '@/auth'
 // import authConfig from './auth.config'
 
-export default auth((req) => {
+export default middleware((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
   const isProtectedRoute = nextUrl.pathname.startsWith(protectedRoutePrefix)
@@ -18,8 +18,6 @@ export default auth((req) => {
     return Response.redirect(new URL(callbackUrl))
   }
 })
-
-// export { auth as middleware } from '@/auth'
 
 export const config = {
   matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
