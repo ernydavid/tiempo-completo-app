@@ -1,4 +1,4 @@
-import { authRoutes, DEFAULT_LOGIN_REDIRECT, protectedRoutePrefix } from '@/routes'
+import { apiProtectedRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT, protectedRoutePrefix } from '@/routes'
 import { auth } from '@/auth'
 
 export default auth((req) => {
@@ -6,6 +6,11 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth
   const isProtectedRoute = nextUrl.pathname.startsWith(protectedRoutePrefix)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  const isApiRoute = apiProtectedRoutes.includes(nextUrl.pathname)
+
+  if (isApiRoute) {
+    return Response.redirect(nextUrl.host)
+  }
 
   if (isLoggedIn && isAuthRoute) {
     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
