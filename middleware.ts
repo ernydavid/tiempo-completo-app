@@ -1,9 +1,9 @@
 import { apiProtectedRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT, protectedRoutePrefix } from '@/routes'
 import { NextResponse } from 'next/server'
-import NextAuth from 'next-auth'
-import authConfig from './auth.config'
-
-const { auth } = NextAuth(authConfig)
+// import NextAuth from 'next-auth'
+// import authConfig from './auth.config'
+import { auth } from '@/auth'
+// const { auth } = NextAuth(authConfig)
 // export default auth((req) => {
 //   const { nextUrl } = req
 //   const isLoggedIn = !!req.auth
@@ -44,10 +44,10 @@ export default auth((request) => {
   if (!isLoggedIn && isProtectedRoute) {
     const callbackUrl = `${nextUrl.origin}/auth/login?callbackUrl=${nextUrl.pathname}`
 
-    return NextResponse.redirect(new URL(callbackUrl))
+    return Response.redirect(new URL(callbackUrl))
   }
 })
 
 export const config = {
-  matcher: ['/api/:path*', '/dashboard/:path*', '/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
+  matcher: ['/api/:path*', '/((?!api|_next/static|_next/image|favicon.ico).*)']
 }
