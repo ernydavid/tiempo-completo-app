@@ -1,8 +1,9 @@
 import { apiProtectedRoutes, authRoutes, DEFAULT_LOGIN_REDIRECT, protectedRoutePrefix } from '@/routes'
-import { auth } from '@/auth'
 import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-
+// import NextAuth from 'next-auth'
+// import authConfig from './auth.config'
+import { auth } from '@/auth'
+// const { auth } = NextAuth(authConfig)
 // export default auth((req) => {
 //   const { nextUrl } = req
 //   const isLoggedIn = !!req.auth
@@ -25,9 +26,9 @@ import type { NextRequest } from 'next/server'
 //   }
 // })
 
-export async function middleware (request: NextRequest) {
+export default auth((request) => {
   const { nextUrl } = request
-  const session = await auth()
+  const isLoggedIn = !!request.auth
   const isProtectedRoute = nextUrl.pathname.startsWith(protectedRoutePrefix)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
   const isApiRoute = apiProtectedRoutes.includes(nextUrl.pathname)
@@ -36,13 +37,17 @@ export async function middleware (request: NextRequest) {
     return NextResponse.redirect(new URL(nextUrl.origin, nextUrl))
   }
 
-  if (session && isAuthRoute) {
+  if (isLoggedIn && isAuthRoute) {
     return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
   }
 
-  if (!session && isProtectedRoute) {
+  if (!isLoggedIn && isProtectedRoute) {
     const callbackUrl = `${nextUrl.origin}/auth/login?callbackUrl=${nextUrl.pathname}`
 
     return NextResponse.redirect(new URL(callbackUrl))
   }
+})
+
+export const config = {
+  matcher: ['/api/:path*', '/dashboard/:path*', '/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)']
 }
