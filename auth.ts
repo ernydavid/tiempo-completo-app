@@ -23,30 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
   },
   callbacks: {
-    authorized: async ({ auth, request }) => {
-      const { nextUrl } = request
-
-      const isLoggedIn = !!auth
-      const isAdminUser: boolean = auth?.user.role === 'admin'
-      const isAuthRoute = authRoutes.includes(nextUrl.pathname)
-      const isProtectedRoute = nextUrl.pathname.startsWith(protectedRoutePrefix)
-      const isAdminRoute = nextUrl.pathname.startsWith(protectedAdminRoutePrefix)
-
-      if (isLoggedIn && isAuthRoute) {
-        return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-      }
-
-      if ((!isLoggedIn || !isAdminUser) && isAdminRoute) {
-        return Response.json({ error: 'No permitido' }, { status: 500 })
-      }
-
-      if (!isLoggedIn && isProtectedRoute) {
-        const callbackUrl = `${nextUrl.origin}/auth/login?callbackUrl=${nextUrl.pathname}`
-        return Response.redirect(callbackUrl)
-      }
-
-      return true
-    },
     async session ({ session, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub
